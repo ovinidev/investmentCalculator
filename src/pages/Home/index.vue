@@ -7,11 +7,53 @@ import arca from "../../assets/arca.svg";
 import Logo from "../../components/Logo.vue";
 import { ref } from "vue";
 
-const handleClick = () => {
-  console.log("funfou");
+const initialInvestment = ref(0);
+
+const onChangeInitialInvestment = (value: number) => {
+  initialInvestment.value = value;
 };
 
-const result = ref(0);
+const investmentPerMonth = ref(0);
+
+const onChangeInvestmentPerMonth = (value: number) => {
+  investmentPerMonth.value = value;
+};
+
+const investmentTime = ref(0);
+
+const onChangeInvestmentTime = (value: number) => {
+  investmentTime.value = value;
+};
+
+const rentabilityCelic = ref(0);
+const rentabilityArca = ref(0);
+
+const selicRate = 0.0925 / 12;
+
+const handleCalculateInvestment = () => {
+  if (
+    !initialInvestment.value ||
+    !investmentPerMonth.value ||
+    !investmentTime.value
+  ) {
+    console.log("Preencha tudo");
+    console.log(initialInvestment.value);
+
+    return;
+  }
+
+  const amountPerMonth = Math.pow(1 + selicRate, 1 / 12) - 1;
+
+  let amount = initialInvestment.value;
+
+  for (let i = 0; i < investmentTime.value; i++) {
+    amount += investmentPerMonth.value;
+    amount *= 1 + amountPerMonth;
+  }
+
+  rentabilityCelic.value = amount;
+  rentabilityArca.value = 500;
+};
 </script>
 
 <template>
@@ -21,7 +63,7 @@ const result = ref(0);
     <Logo :src="primoLogo" alt="grupo primo logo" class="h-6" />
   </header>
 
-  <div v-if="result" class="h-100vh">
+  <section v-if="!rentabilityCelic" class="h-100vh">
     <section class="bg-black h-[270px] flex justify-center px-8 flex-col">
       <h1 class="text-white font-extrabold text-3xl w-64 sm:w-full md:text-4xl">
         Simulador de investimento
@@ -49,26 +91,32 @@ const result = ref(0);
 
         <div class="flex flex-col gap-8 mt-6 lg:items-center lg:flex-row">
           <Input
+            @change="(e) => onChangeInitialInvestment(e.target.value)"
+            v-model="initialInvestment"
             type="number"
             label="Investimento inicial"
             placeholder="R$ 0,00"
           />
 
           <Input
+            @change="(e) => onChangeInvestmentPerMonth(e.target.value)"
+            v-model="investmentPerMonth"
             type="number"
             label="Investimento mensal"
             placeholder="R$ 0,00"
           />
 
           <Input
+            @change="(e) => onChangeInvestmentTime(e.target.value)"
+            v-model="investmentTime"
             type="number"
             label="Quanto tempo deixaria seu dinheiro investido?"
-            placeholder="1 ano"
+            placeholder="12 meses"
           />
         </div>
 
         <Button
-          @click="handleClick"
+          @click="handleCalculateInvestment"
           :class="
             twMerge(
               'bg-primary rounded-2xl h-[77px] w-full mt-8 font-extrabold text-lg',
@@ -80,9 +128,9 @@ const result = ref(0);
         </Button>
       </div>
     </section>
-  </div>
+  </section>
 
-  <section class="w-full p-8 lg:px-24 lg:py-16">
+  <section v-if="rentabilityCelic" class="w-full p-8 lg:px-24 lg:py-16">
     <div class="bg-[#F6F6F6] rounded-2xl py-8 px-6 flex flex-col gap-8 sm:p-10">
       <h2 class="font-bold text-xl text-textPrimary md:text-3xl">Resultado:</h2>
 
@@ -90,7 +138,7 @@ const result = ref(0);
         <text
           class="text-textPrimary font-semibold text-md leading-none md:text-xl lg:mt-6"
         >
-          Em 24 meses você teria:
+          Em {{ investmentTime }} meses você teria:
         </text>
 
         <div
@@ -101,9 +149,9 @@ const result = ref(0);
           >
             taxa selic
           </span>
-          <span class="font-bold text-textPrimary text-3xl lg:text-6xl"
-            >R$ 538,00</span
-          >
+          <span class="font-bold text-textPrimary text-3xl lg:text-6xl">
+            R$ {{ rentabilityCelic.toFixed(2) }}
+          </span>
         </div>
 
         <div
@@ -117,9 +165,9 @@ const result = ref(0);
             fundo arca
           </span>
 
-          <span class="font-bold text-textPrimary text-3xl lg:text-6xl"
-            >R$ 1.0020,00</span
-          >
+          <span class="font-bold text-textPrimary text-3xl lg:text-6xl">
+            R$ {{ rentabilityArca.toFixed(2) }}
+          </span>
         </div>
       </div>
 
@@ -132,7 +180,7 @@ const result = ref(0);
           taxa selic:
         </span>
 
-        <span class="text-textPrimary font-extrabold lg:text-lg"> 9,25% </span>
+        <span class="text-textPrimary font-extrabold lg:text-lg">9,25%</span>
       </div>
 
       <div class="flex flex-col gap-2 sm:flex-row">
@@ -142,9 +190,7 @@ const result = ref(0);
           RENTABILIDADE DO ARCA:
         </span>
 
-        <span class="text-textPrimary font-extrabold lg:text-lg">
-          18% a.a.
-        </span>
+        <span class="text-textPrimary font-extrabold lg:text-lg">18% a.a.</span>
       </div>
 
       <div class="flex flex-row gap-4 text-textThird text-sm lg:text-base">
