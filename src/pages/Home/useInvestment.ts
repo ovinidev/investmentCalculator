@@ -54,6 +54,11 @@ export const useInvestment = () => {
     });
   };
 
+  const handleClearFields = () => {
+    rentabilitySelic.value = 0;
+    rentabilityArca.value = 0;
+  };
+
   return {
     onChangeInitialInvestment,
     onChangeInvestmentPerMonth,
@@ -64,5 +69,6 @@ export const useInvestment = () => {
     initialInvestment,
     investmentPerMonth,
     investmentTime,
+    handleClearFields,
   };
 };

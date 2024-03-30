@@ -2,9 +2,8 @@
 import Input from "../../components/Input.vue";
 import Button from "../../components/Button.vue";
 import { twMerge } from "tailwind-merge";
-import primoLogo from "../../assets/logo.svg";
+import Header from "../../components/Header.vue";
 import arca from "../../assets/arca.svg";
-import Logo from "../../components/Logo.vue";
 import Content from "../../components/Content.vue";
 import Result from "../../components/Result.vue";
 import { useInvestment } from "./useInvestment";
@@ -19,15 +18,12 @@ const {
   investmentTime,
   rentabilityArca,
   rentabilitySelic,
+  handleClearFields,
 } = useInvestment();
 </script>
 
 <template>
-  <header
-    class="h-[85.81px] flex items-center px-8 border-b-[1px] border-gray lg:px-24"
-  >
-    <Logo :src="primoLogo" alt="grupo primo logo" class="h-6" />
-  </header>
+  <Header @click="handleClearFields" />
 
   <section v-if="!rentabilitySelic" class="h-100vh">
     <section
@@ -61,8 +57,7 @@ const {
             v-model="initialInvestment"
             type="number"
             label="Investimento inicial"
-            :value="1000"
-            placeholder="R$ 0,00"
+            placeholder="R$ 1000,00"
             :min="0"
           />
 
@@ -71,8 +66,7 @@ const {
             v-model="investmentPerMonth"
             type="number"
             label="Investimento mensal"
-            :value="100"
-            placeholder="R$ 0,00"
+            placeholder="R$ 100,00"
             :min="0"
           />
 
@@ -81,7 +75,6 @@ const {
             v-model="investmentTime"
             type="number"
             label="Quanto tempo deixaria seu dinheiro investido?"
-            :value="12"
             placeholder="12 meses"
             :min="0"
           />
