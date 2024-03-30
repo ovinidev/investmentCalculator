@@ -2,18 +2,22 @@ export interface CalculateInvestmentProps {
   initialInvestment: number;
   interestRate: number;
   investmentTime: number;
+  investmentPerMonth: number;
 }
 
 export function calculateInvestment({
   initialInvestment,
   interestRate,
   investmentTime,
+  investmentPerMonth,
 }: CalculateInvestmentProps) {
-  let amount = initialInvestment;
+  const months = Object.keys(new Array(Number(investmentTime)).fill(null));
 
-  for (let i = 0; i < investmentTime; i++) {
-    amount = amount * (1 + interestRate);
-  }
+  const newAmount = months.reduce((acc) => {
+    acc = acc * (1 + Number(interestRate));
+    acc += Number(investmentPerMonth);
+    return acc;
+  }, Number(initialInvestment));
 
-  return amount;
+  return newAmount;
 }

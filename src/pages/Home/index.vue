@@ -7,58 +7,19 @@ import arca from "../../assets/arca.svg";
 import Logo from "../../components/Logo.vue";
 import Content from "../../components/Content.vue";
 import Result from "../../components/Result.vue";
-import { ref } from "vue";
-import { calculateInvestment } from "../../utils/calculateInvestment";
-import { ARCA_RATE, SELIC_RATE } from "../../constants/interestRate";
-import { useToast } from "vue-toast-notification";
+import { useInvestment } from "./useInvestment";
 
-const toast = useToast();
-
-const initialInvestment = ref(0);
-const investmentPerMonth = ref(0);
-const investmentTime = ref(0);
-
-const onChangeInitialInvestment = (value: number) => {
-  initialInvestment.value = value;
-};
-
-const onChangeInvestmentPerMonth = (value: number) => {
-  investmentPerMonth.value = value;
-};
-
-const onChangeInvestmentTime = (value: number) => {
-  investmentTime.value = value;
-};
-
-const rentabilitySelic = ref(0);
-const rentabilityArca = ref(0);
-
-const handleCalculateInvestment = () => {
-  if (
-    !initialInvestment.value ||
-    !investmentPerMonth.value ||
-    !investmentTime.value
-  ) {
-    toast.warning("Preencha todos os campos!", {
-      duration: 5000,
-      position: "bottom-right",
-    });
-
-    return;
-  }
-
-  rentabilitySelic.value = calculateInvestment({
-    initialInvestment: initialInvestment.value,
-    interestRate: SELIC_RATE,
-    investmentTime: investmentTime.value,
-  });
-
-  rentabilityArca.value = calculateInvestment({
-    initialInvestment: initialInvestment.value,
-    interestRate: ARCA_RATE,
-    investmentTime: investmentTime.value,
-  });
-};
+const {
+  onChangeInitialInvestment,
+  onChangeInvestmentPerMonth,
+  onChangeInvestmentTime,
+  handleCalculateInvestment,
+  initialInvestment,
+  investmentPerMonth,
+  investmentTime,
+  rentabilityArca,
+  rentabilitySelic,
+} = useInvestment();
 </script>
 
 <template>
@@ -100,7 +61,9 @@ const handleCalculateInvestment = () => {
             v-model="initialInvestment"
             type="number"
             label="Investimento inicial"
+            :value="1000"
             placeholder="R$ 0,00"
+            :min="0"
           />
 
           <Input
@@ -108,7 +71,9 @@ const handleCalculateInvestment = () => {
             v-model="investmentPerMonth"
             type="number"
             label="Investimento mensal"
+            :value="100"
             placeholder="R$ 0,00"
+            :min="0"
           />
 
           <Input
@@ -116,7 +81,9 @@ const handleCalculateInvestment = () => {
             v-model="investmentTime"
             type="number"
             label="Quanto tempo deixaria seu dinheiro investido?"
+            :value="12"
             placeholder="12 meses"
+            :min="0"
           />
         </div>
 
@@ -191,4 +158,3 @@ const handleCalculateInvestment = () => {
     </Content>
   </section>
 </template>
-../../utils/calculateInvestment/calculateInvestiment

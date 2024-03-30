@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
-    "test": "vitest"
+    "vitest": "vitest",
+    "playwright": "playwright test"
   },
   "dependencies": {
     "postcss": "^8.4.38",
@@ -19,6 +20,8 @@
     "vue-writer": "^1.2.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.42.1",
+    "@types/node": "^20.12.2",
     "@typescript-eslint/eslint-plugin": "^7.4.0",
     "@typescript-eslint/parser": "^7.4.0",
     "@vitejs/plugin-vue": "^4.6.2",
