@@ -6,9 +6,9 @@ import { ARCA_RATE, SELIC_RATE } from "../../constants/interestRate";
 export const useInvestment = () => {
   const toast = useToast();
 
-  const initialInvestment = ref(1000);
-  const investmentPerMonth = ref(100);
-  const investmentTime = ref(12);
+  const initialInvestment = ref(0);
+  const investmentPerMonth = ref(0);
+  const investmentTime = ref(0);
 
   const onChangeInitialInvestment = (value: number) => {
     initialInvestment.value = value;
