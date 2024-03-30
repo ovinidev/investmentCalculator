@@ -5,30 +5,33 @@ import { twMerge } from "tailwind-merge";
 import primoLogo from "../../assets/logo.svg";
 import arca from "../../assets/arca.svg";
 import Logo from "../../components/Logo.vue";
+import Content from "../../components/Content.vue";
+import Result from "../../components/Result.vue";
 import { ref } from "vue";
+import { calculateInvestment } from "../../utils/calculateInvestment";
+import { ARCA_RATE, SELIC_RATE } from "../../constants/interestRate";
+import { useToast } from "vue-toast-notification";
+
+const toast = useToast();
 
 const initialInvestment = ref(0);
+const investmentPerMonth = ref(0);
+const investmentTime = ref(0);
 
 const onChangeInitialInvestment = (value: number) => {
   initialInvestment.value = value;
 };
 
-const investmentPerMonth = ref(0);
-
 const onChangeInvestmentPerMonth = (value: number) => {
   investmentPerMonth.value = value;
 };
-
-const investmentTime = ref(0);
 
 const onChangeInvestmentTime = (value: number) => {
   investmentTime.value = value;
 };
 
-const rentabilityCelic = ref(0);
+const rentabilitySelic = ref(0);
 const rentabilityArca = ref(0);
-
-const selicRate = 0.0925 / 12;
 
 const handleCalculateInvestment = () => {
   if (
@@ -36,23 +39,25 @@ const handleCalculateInvestment = () => {
     !investmentPerMonth.value ||
     !investmentTime.value
   ) {
-    console.log("Preencha tudo");
-    console.log(initialInvestment.value);
+    toast.warning("Preencha todos os campos!", {
+      duration: 5000,
+      position: "bottom-right",
+    });
 
     return;
   }
 
-  const amountPerMonth = Math.pow(1 + selicRate, 1 / 12) - 1;
+  rentabilitySelic.value = calculateInvestment({
+    initialInvestment: initialInvestment.value,
+    interestRate: SELIC_RATE,
+    investmentTime: investmentTime.value,
+  });
 
-  let amount = initialInvestment.value;
-
-  for (let i = 0; i < investmentTime.value; i++) {
-    amount += investmentPerMonth.value;
-    amount *= 1 + amountPerMonth;
-  }
-
-  rentabilityCelic.value = amount;
-  rentabilityArca.value = 500;
+  rentabilityArca.value = calculateInvestment({
+    initialInvestment: initialInvestment.value,
+    interestRate: ARCA_RATE,
+    investmentTime: investmentTime.value,
+  });
 };
 </script>
 
@@ -63,8 +68,10 @@ const handleCalculateInvestment = () => {
     <Logo :src="primoLogo" alt="grupo primo logo" class="h-6" />
   </header>
 
-  <section v-if="!rentabilityCelic" class="h-100vh">
-    <section class="bg-black h-[270px] flex justify-center px-8 flex-col">
+  <section v-if="!rentabilitySelic" class="h-100vh">
+    <section
+      class="bg-black h-[270px] flex justify-center px-8 flex-col lg:px-24"
+    >
       <h1 class="text-white font-extrabold text-3xl w-64 sm:w-full md:text-4xl">
         Simulador de investimento
       </h1>
@@ -74,10 +81,8 @@ const handleCalculateInvestment = () => {
       </text>
     </section>
 
-    <section class="w-full p-8">
-      <div
-        class="bg-[#F6F6F6] rounded-2xl py-8 px-6 flex flex-col gap-5 sm:p-10"
-      >
+    <section class="w-full p-8 lg:px-24 lg:py-16">
+      <Content>
         <h2 class="font-semibold text-xl text-textPrimary md:text-3xl">
           Simule agora
         </h2>
@@ -126,12 +131,12 @@ const handleCalculateInvestment = () => {
         >
           Calcular ->
         </Button>
-      </div>
+      </Content>
     </section>
   </section>
 
-  <section v-if="rentabilityCelic" class="w-full p-8 lg:px-24 lg:py-16">
-    <div class="bg-[#F6F6F6] rounded-2xl py-8 px-6 flex flex-col gap-8 sm:p-10">
+  <section v-if="rentabilitySelic" class="w-full p-8 lg:px-24 lg:py-16">
+    <Content>
       <h2 class="font-bold text-xl text-textPrimary md:text-3xl">Resultado:</h2>
 
       <div class="flex flex-col gap-4">
@@ -141,34 +146,11 @@ const handleCalculateInvestment = () => {
           Em {{ investmentTime }} meses você teria:
         </text>
 
-        <div
-          class="p-8 gap-4 border-gray text-sm flex flex-col bg-white rounded-3xl border-2 border-gray"
-        >
-          <span
-            class="uppercase text-textSecondary font-semibold tracking-widest lg:text-lg"
-          >
-            taxa selic
-          </span>
-          <span class="font-bold text-textPrimary text-3xl lg:text-6xl">
-            R$ {{ rentabilityCelic.toFixed(2) }}
-          </span>
-        </div>
+        <Result title="taxa selic" :rate="rentabilitySelic" />
 
-        <div
-          class="p-8 gap-4 border-gray text-sm flex flex-col items-start bg-white rounded-3xl border-2 border-gray"
-        >
+        <Result title="fundo arca" :rate="rentabilityArca">
           <Logo :src="arca" alt="grupo primo logo" class="h-6" />
-
-          <span
-            class="uppercase text-textSecondary font-semibold tracking-widest lg:text-lg"
-          >
-            fundo arca
-          </span>
-
-          <span class="font-bold text-textPrimary text-3xl lg:text-6xl">
-            R$ {{ rentabilityArca.toFixed(2) }}
-          </span>
-        </div>
+        </Result>
       </div>
 
       <div class="bg-primary w-full h-1 rounded-full" />
@@ -206,6 +188,7 @@ const handleCalculateInvestment = () => {
           <p>- Data da última atualização: 10/01/2024</p>
         </div>
       </div>
-    </div>
+    </Content>
   </section>
 </template>
+../../utils/calculateInvestment/calculateInvestiment
