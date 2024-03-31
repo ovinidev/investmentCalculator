@@ -16,6 +16,9 @@ Tecnologias utilizada no projeto:
 Documentação técnica:
 https://docs.google.com/document/d/16tsYLlRATG4ahLkTdhTV7p0o6QhqCBdBQ6MUfnhIcpQ/edit?usp=sharing
 
+Miro com organização:
+https://miro.com/app/board/uXjVKaJjuU4=/?share_link_id=494453064438
+
 ## 🚀 Como executar
 
 - Clone o repositório
