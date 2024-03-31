@@ -1,9 +1,14 @@
 <script setup lang="ts">
 import { defineProps } from "vue";
 
-defineProps({
+const { rate } = defineProps({
   title: String,
   rate: Number,
+});
+
+const formattedRate = rate?.toLocaleString("pt-BR", {
+  style: "currency",
+  currency: "BRL",
 });
 </script>
 
@@ -19,8 +24,12 @@ defineProps({
       {{ title }}
     </span>
 
-    <span v-if="rate" class="font-bold text-textPrimary text-3xl lg:text-6xl">
-      R$ {{ rate.toFixed(2) }}
+    <span
+      v-if="rate"
+      :data-testid="title"
+      class="font-bold text-textPrimary text-3xl lg:text-6xl"
+    >
+      {{ formattedRate }}
     </span>
   </div>
 </template>

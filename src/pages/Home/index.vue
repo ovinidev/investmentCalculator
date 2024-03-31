@@ -5,6 +5,7 @@ import { twMerge } from "tailwind-merge";
 import Header from "../../components/Header.vue";
 import arca from "../../assets/arca.svg";
 import Content from "../../components/Content.vue";
+import Logo from "../../components/Logo.vue";
 import Result from "../../components/Result.vue";
 import { useInvestment } from "./useInvestment";
 
@@ -53,6 +54,7 @@ const {
 
         <div class="flex flex-col gap-8 mt-6 lg:items-center lg:flex-row">
           <Input
+            id="initialInvestment"
             @change="(e) => onChangeInitialInvestment(e.target.value)"
             v-model="initialInvestment"
             type="number"
@@ -62,6 +64,7 @@ const {
           />
 
           <Input
+            id="investmentPerMonth"
             @change="(e) => onChangeInvestmentPerMonth(e.target.value)"
             v-model="investmentPerMonth"
             type="number"
@@ -71,6 +74,7 @@ const {
           />
 
           <Input
+            id="investmentTime"
             @change="(e) => onChangeInvestmentTime(e.target.value)"
             v-model="investmentTime"
             type="number"
@@ -81,6 +85,7 @@ const {
         </div>
 
         <Button
+          data-testid="buttonCalculate"
           @click="handleCalculateInvestment"
           :class="
             twMerge(

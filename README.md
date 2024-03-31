@@ -1,32 +1,33 @@
-# Vini
+# Calculadora de investimentos
 
 <p align="center">
-  
-<h4>
-  Meu portfólio
-</h4>
 
 ## 💡 Tecnologias
 
 Tecnologias utilizada no projeto:
 
-<img src="https://camo.githubusercontent.com/c8f91d18976e27123643a926a2588b8d931a0292fd0b6532c3155379e8591629/68747470733a2f2f7675656a732e6f72672f696d616765732f6c6f676f2e706e67" alt='vue' width="60">&nbsp;
+<img height="50" title="Next" alt="Next" src="https://seeklogo.com/images/V/vuejs-logo-17D586B587-seeklogo.com.png"> &nbsp;
 &nbsp;
-<img src="https://cdn.iconscout.com/icon/free/png-512/typescript-1174965.png" alt="typescript" width="60">&nbsp;
+<img src="https://cdn.iconscout.com/icon/free/png-512/typescript-1174965.png" alt="imagem" width="50">&nbsp;
 &nbsp;
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg" alt="tailwind" width="60">&nbsp;
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Tailwind_CSS_Logo.svg/1024px-Tailwind_CSS_Logo.svg.png" alt="imagem" width="75">&nbsp;
 &nbsp;
 
 ## 🚀 Como executar
 
 - Clone o repositório
-- Instale as dependências com `pnpm`
+- Instale as dependências com `pnpm install`
 - Inicie o servidor com `pnpm dev`
 
 Agora você pode acessar [`localhost:5173`](http://localhost:5173) do seu
 navegador.
 
-<div>
-  <img align="left" src="https://avatars.githubusercontent.com/u/62653539?v=4" width=35 alt="Profile"/>
-  <sub>Made with 💜 by <a href="https://github.com/ovinidev">Vinícius Medeiros</a></sub>
-</div>
+## 👨‍💻 Funcionalidades
+
+A aplicação oferece as seguintes funcionalidades:
+
+### Calcular investimentos
+
+O usuário irá fornecer o investimento inicial, valor mensal de adição e tempo de investimento, a ferramenta irá estimar os ganhos baseado no tesouro selic e fundo arca.
+
+<sub>Made with 💜 by <a href="https://github.com/ovinidev">Vinícius Medeiros</a></sub>
