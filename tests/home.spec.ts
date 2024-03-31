@@ -14,6 +14,30 @@ test.describe("Access home", () => {
     currency: "BRL",
   });
 
+  test("should not be able to calculate investment with empty fields", async ({
+    page,
+  }) => {
+    await page.goto("http://localhost:5173");
+
+    await page.waitForTimeout(500);
+
+    const button = await page.$('[data-testid="buttonCalculate"]');
+
+    await page.waitForTimeout(500);
+
+    await button?.click();
+
+    await page.waitForTimeout(500);
+
+    const toast = await page.waitForSelector('[role="alert"]');
+
+    const isVisible = await toast.isVisible();
+    expect(isVisible).toBe(true);
+
+    const toastText = await toast.innerText();
+    expect(toastText).toContain("Preencha todos os campos!");
+  });
+
   test("should be able to navigate to home", async ({ page }) => {
     await putCalcOnFields(page);
 
@@ -35,23 +59,5 @@ test.describe("Access home", () => {
     const arca = await page.$('[data-testid="fundo arca"]');
 
     expect(await arca?.innerText()).toEqual(arcaFormatted);
-  });
-
-  test.only("should not be able to calculate investment with empty fields", async ({
-    page,
-  }) => {
-    await page.goto("http://localhost:5173");
-
-    const button = await page.$('[data-testid="buttonCalculate"]');
-
-    await button?.click();
-
-    const toast = await page.waitForSelector('[role="alert"]');
-
-    const isVisible = await toast.isVisible();
-    expect(isVisible).toBe(true);
-
-    const toastText = await toast.innerText();
-    expect(toastText).toContain("Preencha todos os campos!");
   });
 });
