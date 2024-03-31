@@ -52,7 +52,7 @@ const {
           intuitiva:
         </text>
 
-        <div class="flex flex-col gap-8 mt-6 lg:items-center lg:flex-row">
+        <div class="flex flex-col gap-8 mt-6 xl:items-center xl:flex-row">
           <Input
             id="initialInvestment"
             @change="(e) => onChangeInitialInvestment(e.target.value)"

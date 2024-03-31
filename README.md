@@ -13,6 +13,9 @@ Tecnologias utilizada no projeto:
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Tailwind_CSS_Logo.svg/1024px-Tailwind_CSS_Logo.svg.png" alt="imagem" width="75">&nbsp;
 &nbsp;
 
+Documentação técnica:
+https://docs.google.com/document/d/16tsYLlRATG4ahLkTdhTV7p0o6QhqCBdBQ6MUfnhIcpQ/edit?usp=sharing
+
 ## 🚀 Como executar
 
 - Clone o repositório
