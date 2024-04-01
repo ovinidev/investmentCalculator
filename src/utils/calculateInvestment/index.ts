@@ -10,7 +10,7 @@ export function calculateInvestment({
   interestRate,
   investmentTime,
   investmentPerMonth,
-}: CalculateInvestmentProps) {
+}: CalculateInvestmentProps): number {
   const months = Object.keys(new Array(Number(investmentTime)).fill(null));
 
   const newAmount = months.reduce((acc) => {
@@ -19,5 +19,5 @@ export function calculateInvestment({
     return acc;
   }, Number(initialInvestment));
 
-  return newAmount;
+  return Number(newAmount.toFixed(2));
 }

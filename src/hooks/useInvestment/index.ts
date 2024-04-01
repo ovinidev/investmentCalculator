@@ -1,7 +1,20 @@
-import { ref } from "vue";
+import { Ref, ref } from "vue";
 import { useToast } from "vue-toast-notification";
 import { calculateInvestment } from "../../utils/calculateInvestment";
 import { ARCA_RATE, SELIC_RATE } from "../../constants/interestRate";
+
+export interface UseInvestmentProps {
+  onChangeInitialInvestment: (value: number) => void; // eslint-disable-line no-unused-vars
+  onChangeInvestmentPerMonth: (value: number) => void; // eslint-disable-line no-unused-vars
+  onChangeInvestmentTime: (value: number) => void; // eslint-disable-line no-unused-vars
+  handleCalculateInvestment: () => void;
+  handleClearFields: () => void;
+  initialInvestment: Ref<number>;
+  investmentPerMonth: Ref<number>;
+  investmentTime: Ref<number>;
+  rentabilityArca: Ref<number>;
+  rentabilitySelic: Ref<number>;
+}
 
 export const useInvestment = () => {
   const toast = useToast();

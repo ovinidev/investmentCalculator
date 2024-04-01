@@ -8,7 +8,7 @@ import Content from "../../components/Content.vue";
 import Logo from "../../components/Logo.vue";
 import Help from "../../assets/help.svg";
 import Result from "../../components/Result.vue";
-import { useInvestment } from "./useInvestment";
+import { useInvestment } from "../../hooks/useInvestment";
 
 const {
   onChangeInitialInvestment,
@@ -159,3 +159,4 @@ const {
     </Content>
   </section>
 </template>
+../../hooks/useInvestment/useInvestment
