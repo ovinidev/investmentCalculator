@@ -28,6 +28,10 @@ https://miro.com/app/board/uXjVKaJjuU4=/?share_link_id=494453064438
 Agora você pode acessar [`localhost:5173`](http://localhost:5173) do seu
 navegador.
 
+- Rode os testes com `pnpm test`
+
+Acesse o deploy da aplicação na Vercel: https://investment-calculator-vini.vercel.app
+
 ## 👨‍💻 Funcionalidades
 
 A aplicação oferece as seguintes funcionalidades:
