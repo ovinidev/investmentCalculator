@@ -6,6 +6,7 @@ import Header from "../../components/Header.vue";
 import arca from "../../assets/arca.svg";
 import Content from "../../components/Content.vue";
 import Logo from "../../components/Logo.vue";
+import Help from "../../assets/help.svg";
 import Result from "../../components/Result.vue";
 import { useInvestment } from "./useInvestment";
 
@@ -141,7 +142,9 @@ const {
       </div>
 
       <div class="flex flex-row gap-4 text-textThird text-sm lg:text-base">
-        <text>?</text>
+        <text>
+          <Logo :src="Help" alt="grupo primo logo" class="w-24 sm:w-8" />
+        </text>
 
         <div class="flex flex-col gap-4">
           <p>
