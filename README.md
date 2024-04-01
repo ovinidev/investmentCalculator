@@ -19,6 +19,8 @@ https://docs.google.com/document/d/16tsYLlRATG4ahLkTdhTV7p0o6QhqCBdBQ6MUfnhIcpQ/
 Miro com organização:
 https://miro.com/app/board/uXjVKaJjuU4=/?share_link_id=494453064438
 
+Repositório de testes e2e: https://github.com/ovinidev/investmentCalculatorQa
+
 ## 🚀 Como executar
 
 - Clone o repositório
